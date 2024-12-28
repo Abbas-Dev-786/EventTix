@@ -1,7 +1,9 @@
-import { type Chain } from "viem";
+import { defineChain } from "@reown/appkit/networks";
 
-export const bellecour = {
-  id: 0x86,
+export const bellecour = defineChain({
+  id: 134,
+  caipNetworkId: "eip155:1337",
+  chainNamespace: "eip155",
   name: "iExec Sidechain",
   nativeCurrency: {
     decimals: 18,
@@ -19,4 +21,4 @@ export const bellecour = {
     },
     default: { name: "Blockscout", url: "https://blockscout-bellecour.iex.ec" },
   },
-} as const satisfies Chain;
+});

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
+import NavActionBtn from "./NavActionBtn";
 
 const Header = () => {
   return (
@@ -21,11 +22,10 @@ const Header = () => {
           <NavItems />
         </nav>
 
-        <div className="flex w-32 justify-end gap-3">
-          {/* <UserButton afterSignOutUrl="/" /> */}
+        <div className="flex justify-end gap-3">
           <MobileNav />
           <Button asChild className="rounded-full" size="lg">
-            <Link href="/sign-in">Login</Link>
+            <NavActionBtn />
           </Button>
         </div>
       </div>

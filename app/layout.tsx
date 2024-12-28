@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import "./globals.css";
+import { headers } from "next/headers"; // added
+import ContextProvider from "@/context";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,12 +21,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
+  const headersObj = headers();
+  const cookies = headersObj.get("cookie");
+
   return (
     <html lang="en">
-      <body className={poppins.variable}>{children}</body>
+      <body className={poppins.variable}>
+        <ContextProvider cookies={cookies}>{children}</ContextProvider>
+      </body>
     </html>
   );
 }
