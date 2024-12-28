@@ -30,8 +30,18 @@ const modal = createAppKit({
   networks: [bellecour, sepolia],
   defaultNetwork: bellecour,
   metadata: metadata,
+  themeVariables: {
+    "--w3m-accent": "#705df6",
+    "--w3m-color-mix": "#705df6",
+    "--w3m-color-mix-strength": 10,
+  },
   features: {
+    email: true, // default to true
+    socials: ["google", "x", "farcaster"],
+    emailShowWallets: true, // default to true
     analytics: true, // Optional - defaults to your Cloud configuration
+    onramp: false,
+    swaps: false,
   },
 });
 
