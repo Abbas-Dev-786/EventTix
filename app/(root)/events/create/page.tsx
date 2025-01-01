@@ -1,9 +1,10 @@
+"use client";
 import EventForm from "@/components/shared/EventForm";
+import { useAccount } from "wagmi";
 
 const CreateEvent = () => {
-  // const { sessionClaims } = auth();
-
-  const userId = "1";
+  const account = useAccount();
+  const userId = account?.address || "";
 
   return (
     <>

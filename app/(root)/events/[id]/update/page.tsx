@@ -1,5 +1,8 @@
+"use client";
+
 import EventForm from "@/components/shared/EventForm";
 import { getEventById } from "@/lib/actions/event.actions";
+import { useAccount } from "wagmi";
 
 type UpdateEventProps = {
   params: {
@@ -8,7 +11,8 @@ type UpdateEventProps = {
 };
 
 const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
-  const userId = "1";
+  const account = useAccount();
+  const userId = account?.address || "";
   const event = await getEventById(id);
 
   return (
