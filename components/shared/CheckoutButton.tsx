@@ -5,9 +5,11 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import Checkout from "./Checkout";
+import { useAccount } from "wagmi";
 
 const CheckoutButton = ({ event }: { event: IEvent }) => {
-  const userId = "1";
+  const account = useAccount();
+  const userId = account?.address || "";
   const hasEventFinished = new Date(event.endDateTime) < new Date();
 
   return (
