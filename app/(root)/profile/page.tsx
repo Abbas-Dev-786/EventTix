@@ -1,3 +1,4 @@
+"use client";
 import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
 import { getEventsByUser } from "@/lib/actions/event.actions";
@@ -5,18 +6,38 @@ import { getOrdersByUser } from "@/lib/actions/order.actions";
 import { IOrder } from "@/lib/database/models/order.model";
 import { SearchParamProps } from "@/types";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 
-const ProfilePage = async ({ searchParams }: SearchParamProps) => {
-  const userId = "1";
+const ProfilePage = ({ searchParams }: SearchParamProps) => {
+  const account = useAccount();
+  const userId = account?.address || "";
+  const [orders, setOrders] = useState<any>(null);
+  const [organizedEvents, setOrganizedEvents] = useState<any>(null);
 
   const ordersPage = Number(searchParams?.ordersPage) || 1;
   const eventsPage = Number(searchParams?.eventsPage) || 1;
 
-  const orders = await getOrdersByUser({ userId, page: ordersPage });
+  useEffect(() => {
+    if (!userId) return;
+
+    // Fetch orders
+    const fetchOrders = async () => {
+      const ordersData = await getOrdersByUser({ userId, page: ordersPage });
+      setOrders(ordersData);
+    };
+
+    // Fetch organized events
+    const fetchOrganizedEvents = async () => {
+      const eventsData = await getEventsByUser({ userId, page: eventsPage });
+      setOrganizedEvents(eventsData);
+    };
+
+    fetchOrders();
+    fetchOrganizedEvents();
+  }, [userId, ordersPage, eventsPage]);
 
   const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
-  const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
   return (
     <>
