@@ -1,6 +1,7 @@
 "use client";
 
 import EventForm from "@/components/shared/EventForm";
+import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import { getEventById } from "@/lib/actions/event.actions";
 import { useAccount } from "wagmi";
 
@@ -16,7 +17,7 @@ const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
   const event = await getEventById(id);
 
   return (
-    <>
+    <ProtectedRoute organizer={event?.organizer}>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
         <h3 className="wrapper h3-bold text-center sm:text-left">
           Update Event
@@ -31,7 +32,7 @@ const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
           userId={userId}
         />
       </div>
-    </>
+    </ProtectedRoute>
   );
 };
 

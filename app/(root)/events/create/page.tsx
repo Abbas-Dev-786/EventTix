@@ -1,5 +1,6 @@
 "use client";
 import EventForm from "@/components/shared/EventForm";
+import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import { useAccount } from "wagmi";
 
 const CreateEvent = () => {
@@ -7,7 +8,7 @@ const CreateEvent = () => {
   const userId = account?.address || "";
 
   return (
-    <>
+    <ProtectedRoute>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
         <h3 className="wrapper h3-bold text-center sm:text-left">
           Create Event
@@ -17,7 +18,7 @@ const CreateEvent = () => {
       <div className="wrapper my-8">
         <EventForm userId={userId} type="Create" />
       </div>
-    </>
+    </ProtectedRoute>
   );
 };
 
